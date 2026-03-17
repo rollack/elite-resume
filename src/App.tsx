@@ -13,6 +13,7 @@ import { auth, db, signInWithGoogle, logout } from './firebase';
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { handleFirestoreError, OperationType } from './utils/errorHandling';
+import { generateResumeFromProfile } from './services/gemini';
 
 type View = 'home' | 'settings' | 'admin' | 'public';
 
@@ -100,6 +101,26 @@ export default function App() {
     }));
     setShowSyncModal(false);
     setPendingProfileData(null);
+  };
+
+  const handleFullSync = async () => {
+    if (!user) return;
+    setSyncStatus('syncing');
+    try {
+      const profileRef = doc(db, 'profiles', user.uid);
+      const profileSnap = await getDoc(profileRef);
+      if (profileSnap.exists()) {
+        const profileData = profileSnap.data();
+        const generatedResume = await generateResumeFromProfile(profileData);
+        if (generatedResume) {
+          setData(generatedResume);
+          setSyncStatus('synced');
+        }
+      }
+    } catch (error) {
+      setSyncStatus('error');
+      console.error('Full sync error:', error);
+    }
   };
 
   // Local Persistence
@@ -346,7 +367,7 @@ export default function App() {
               <div className="no-print w-full lg:w-[450px] flex-shrink-0 h-[calc(100vh-140px)] flex flex-col gap-6">
                 <ResumeImporter onImport={setData} />
                 <div className="flex-1 overflow-hidden">
-                  <ResumeEditor data={data} onChange={setData} />
+                  <ResumeEditor data={data} onChange={setData} onFullSync={handleFullSync} />
                 </div>
               </div>
 

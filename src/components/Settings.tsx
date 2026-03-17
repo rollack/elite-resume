@@ -92,7 +92,7 @@ export function Settings({ userId }: SettingsProps) {
               <User className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
               <input
                 type="text"
-                value={profile.fullName}
+                value={profile.fullName || ''}
                 onChange={(e) => setProfile({ ...profile, fullName: e.target.value })}
                 className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:ring-2 focus:ring-zinc-900 dark:focus:ring-white transition-all outline-none"
                 placeholder="John Doe"
@@ -106,7 +106,7 @@ export function Settings({ userId }: SettingsProps) {
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
               <input
                 type="email"
-                value={profile.email}
+                value={profile.email || ''}
                 onChange={(e) => setProfile({ ...profile, email: e.target.value })}
                 className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:ring-2 focus:ring-zinc-900 dark:focus:ring-white transition-all outline-none"
                 placeholder="john@example.com"
@@ -120,7 +120,7 @@ export function Settings({ userId }: SettingsProps) {
               <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
               <input
                 type="tel"
-                value={profile.phone}
+                value={profile.phone || ''}
                 onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
                 className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:ring-2 focus:ring-zinc-900 dark:focus:ring-white transition-all outline-none"
                 placeholder="+1 (555) 000-0000"
@@ -136,7 +136,7 @@ export function Settings({ userId }: SettingsProps) {
               <Github className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
               <input
                 type="url"
-                value={profile.socials.github}
+                value={profile.socials.github || ''}
                 onChange={(e) => setProfile({ ...profile, socials: { ...profile.socials, github: e.target.value } })}
                 className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:ring-2 focus:ring-zinc-900 dark:focus:ring-white transition-all outline-none"
                 placeholder="https://github.com/username"
@@ -150,7 +150,7 @@ export function Settings({ userId }: SettingsProps) {
               <Linkedin className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
               <input
                 type="url"
-                value={profile.socials.linkedin}
+                value={profile.socials.linkedin || ''}
                 onChange={(e) => setProfile({ ...profile, socials: { ...profile.socials, linkedin: e.target.value } })}
                 className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:ring-2 focus:ring-zinc-900 dark:focus:ring-white transition-all outline-none"
                 placeholder="https://linkedin.com/in/username"
@@ -164,7 +164,7 @@ export function Settings({ userId }: SettingsProps) {
               <Globe className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" size={18} />
               <input
                 type="url"
-                value={profile.socials.website}
+                value={profile.socials.website || ''}
                 onChange={(e) => setProfile({ ...profile, socials: { ...profile.socials, website: e.target.value } })}
                 className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:ring-2 focus:ring-zinc-900 dark:focus:ring-white transition-all outline-none"
                 placeholder="https://portfolio.com"

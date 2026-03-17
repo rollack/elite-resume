@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Upload, FileText, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Upload, FileText, Loader2, AlertCircle, CheckCircle2, UserPlus, Sparkles } from 'lucide-react';
 import mammoth from 'mammoth';
 import { ResumeData, initialData } from '../types';
+import { generateRandomResume } from '../services/gemini';
 
 interface ResumeImporterProps {
   onImport: (data: ResumeData) => void;
@@ -64,6 +65,25 @@ export function ResumeImporter({ onImport }: ResumeImporterProps) {
     }
   };
 
+  const handleGenerateDemo = async () => {
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+    try {
+      const data = await generateRandomResume();
+      if (data) {
+        onImport(data);
+        setSuccess(true);
+      } else {
+        throw new Error('Failed to generate random resume.');
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to generate demo.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="space-y-4">
       <div className="relative group">
@@ -107,6 +127,15 @@ export function ResumeImporter({ onImport }: ResumeImporterProps) {
           {error}
         </div>
       )}
+
+      <button
+        onClick={handleGenerateDemo}
+        disabled={loading}
+        className="w-full flex items-center justify-center gap-2 py-3 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 rounded-xl text-xs font-bold hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-all disabled:opacity-50"
+      >
+        {loading ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
+        Demo: Generate Random Person
+      </button>
     </div>
   );
 }

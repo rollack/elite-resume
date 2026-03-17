@@ -54,6 +54,8 @@ export interface ResumeData {
   certifications: Certification[];
   languages: string[];
   isPublic?: boolean;
+  score?: number;
+  auditSuggestions?: string[];
 }
 
 export const initialData: ResumeData = {
