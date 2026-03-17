@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "Resume": {
+      "title": "Resume",
+      "description": "User resume data including personal info, experience, education, etc.",
+      "type": "object",
+      "properties": {
+        "personalInfo": { "type": "object" },
+        "summary": { "type": "string" },
+        "experience": { "type": "array" },
+        "education": { "type": "array" },
+        "skills": { "type": "array" },
+        "projects": { "type": "array" },
+        "certifications": { "type": "array" },
+        "languages": { "type": "array" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "userId": { "type": "string" },
+        "isPublic": { "type": "boolean" }
+      },
+      "required": ["personalInfo", "userId", "updatedAt"]
+    },
+    "Profile": {
+      "title": "User Profile",
+      "description": "User settings and profile information.",
+      "type": "object",
+      "properties": {
+        "fullName": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "socials": { "type": "object" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/resumes/{userId}": {
+      "schema": "Resume",
+      "description": "Stores the latest resume for each user, keyed by their UID."
+    },
+    "/profiles/{userId}": {
+      "schema": "Profile",
+      "description": "Stores user profile settings."
+    }
+  }
+}
